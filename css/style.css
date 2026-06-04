@@ -1,0 +1,418 @@
+/* ==========================================
+   1. 現代極簡全域設定與絲滑滾動
+   ========================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Noto Sans TC", sans-serif;
+    background-color: #fcfcfc;
+    color: #1a1a1a;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================
+   2. 固定導覽列 (Fixed Navbar)
+   ========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(252, 252, 252, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.logo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    z-index: 1010;
+}
+
+.logo .thin {
+    font-weight: 200;
+    color: #888;
+}
+
+.menu-toggle-input {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 16px;
+    z-index: 1010;
+}
+
+.hamburger .bar {
+    width: 100%;
+    height: 1px;
+    background-color: #1a1a1a;
+    transition: all 0.3s ease;
+}
+
+/* 桌機端選單 */
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: #777;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ==========================================
+   3. 內容版面佈局
+   ========================================== */
+.container {
+    max-width: 1300px;
+    margin: 160px auto 100px auto;
+    padding: 0 40px;
+}
+
+.section {
+    padding: 90px 0 60px 0;
+    border-bottom: 1px solid #eaeaea;
+    scroll-margin-top: 120px;
+}
+
+.section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 45px;
+}
+
+.section-num {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #999;
+    font-family: Georgia, serif;
+}
+
+.section-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #111;
+}
+
+.about-content {
+    max-width: 900px;
+}
+
+.about-lead {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: #000;
+    margin-bottom: 25px;
+}
+
+.about-lead span {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #000;
+    margin-bottom: 25px;
+}
+
+.about-text {
+    font-size: 1rem;
+    color: #666;
+    text-align: justify;
+}
+
+.skills-text {
+    padding-left: 1.5rem;
+    list-style-type: none;
+}
+
+.skills-text ul {
+    padding-left: 1.5rem;
+}
+
+.type-title {
+    margin-bottom: 2rem;
+}
+
+.type-title a {
+    text-decoration: none;
+}
+
+.type-title a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================
+   4. 高級感作品網格
+   ========================================== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 40px 30px;
+}
+
+.portfolio-item {
+    display: block;
+    cursor: pointer;
+}
+
+.img-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #eee;
+    margin-bottom: 15px;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.04);
+}
+
+.item-info {
+    padding: 5px 0;
+}
+
+.item-category {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #999;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.item-title {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #222;
+}
+
+.portfolio-item:hover .item-title {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================
+   5. 智慧彈跳大圖展示區 (支援各種極端比例作品)
+   ========================================== */
+.lightbox {
+    display: flex;              
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 11, 11, 0.98); 
+    z-index: 2000;
+    opacity: 0;                 
+    pointer-events: none;       
+    transition: opacity 0.4s ease; 
+    padding: 40px 20px;
+    overflow-y: auto;           
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-wrapper {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;               
+}
+
+.lightbox-wrapper02 {
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;               
+}
+
+.lightbox-wrapper03 {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;               
+}
+
+.close-btn {
+    display: inline-block;
+    color: #888;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+/* 智慧溢出防爆容器 */
+.lightbox-content {
+    background-color: #121212;
+    border: 1px solid #222;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    
+    max-height: 70vh;           /* 限制大圖最大可見高度為螢幕的 70% */
+    overflow: auto;             /* 圖片任一維度溢出時，自動長出精緻捲軸 */
+    -webkit-overflow-scrolling: touch; 
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: auto;               /* 保持真實比例，藉此完美支援長條圖與寬圖 */
+    display: block;
+}
+
+.lightbox-meta {
+    padding: 40px;
+    text-align: left;
+    color: #ccc;
+    background-color: #121212;
+    border-top: 1px solid #222;
+}
+
+.lightbox-meta h4 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.lightbox-meta p {
+    font-size: 0.9rem;
+    color: #999;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   6. 頁尾
+   ========================================== */
+.footer {
+    padding: 60px 0;
+    text-align: center;
+    border-top: 1px solid #eaeaea;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #999;
+}
+
+/* ==========================================
+   7. 現代極簡美化滾動條 (Scrollbar Customization)
+   ========================================== */
+.lightbox-content::-webkit-scrollbar {
+    width: 6px;  /* 垂直捲軸細度 */
+    height: 6px; /* 水平捲軸細度 */
+}
+
+.lightbox-content::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.lightbox-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 10px;                  
+    transition: background 0.3s ease;
+}
+
+.lightbox-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4); 
+}
+
+/* Firefox 瀏覽器標準設定 */
+.lightbox-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* ==========================================
+   8. RWD 響應式手機選單
+   ========================================== */
+@media (max-width: 992px) {
+    .navbar { padding: 25px 30px; }
+    .container { padding: 0 25px; margin-top: 130px; }
+    .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+}
+
+@media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100vh;
+        background-color: rgba(255, 255, 255, 0.98);
+        flex-direction: column; justify-content: center; align-items: center; gap: 35px;
+        opacity: 0; pointer-events: none;
+        transition: all 0.4s ease; z-index: 1005;
+    }
+    .nav-links a { font-size: 1.1rem; letter-spacing: 0.2em; }
+    .menu-toggle-input:checked ~ .nav-links { opacity: 1; pointer-events: auto; }
+    .menu-toggle-input:checked ~ .hamburger .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle-input:checked ~ .hamburger .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle-input:checked ~ .hamburger .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .container { margin-top: 120px; }
+    .section { scroll-margin-top: 80px; }
+    .lightbox { padding: 20px 10px; }
+    .lightbox-meta { padding: 25px 20px; }
+}
